@@ -1,7 +1,9 @@
 package itcast.controller;
 
 import itcast.application.AdminService;
+import itcast.domain.blog.enums.BlogStatus;
 import itcast.domain.news.enums.NewsStatus;
+import itcast.domain.user.enums.Interest;
 import itcast.dto.request.AdminBlogRequest;
 import itcast.dto.request.AdminNewsRequest;
 import itcast.dto.response.AdminBlogResponse;
@@ -13,8 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,5 +52,23 @@ public class AdminController {
         );
         return new ResponseEntity<>(
                 ResponseBodyDto.success("관리자 뉴스 조회 성공", newPageResponse), HttpStatus.OK);
+    }
+
+    @GetMapping("/blogs")
+    public ResponseEntity<ResponseBodyDto<PageResponse<AdminBlogResponse>>> retrieveBlogs(
+            @RequestParam Long userId,
+            @RequestParam BlogStatus status,
+            @RequestParam Interest interest,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<AdminBlogResponse> blogPage = adminService.retrieveBlog(userId, status, interest, page, size);
+        PageResponse<AdminBlogResponse> blogPageResponse = new PageResponse<>(
+                blogPage.getContent(),
+                blogPage.getNumber(),
+                blogPage.getSize(),
+                blogPage.getTotalPages()
+        );
+        return new ResponseEntity<>(
+                ResponseBodyDto.success("관리자 뉴스 조회 성공", blogPageResponse), HttpStatus.OK);
     }
 }

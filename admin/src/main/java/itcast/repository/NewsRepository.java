@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
 
-    @Query("SELECT n FROM News n WHERE n.status = :status ORDER BY n.sendAt DESC ")
+    @Query("SELECT n FROM News n WHERE n.status = :status ORDER BY n.sendAt DESC")
     Page<AdminNewsResponse> findAllByStatusOrderBySendAtDesc(@Param("status") NewsStatus status, Pageable pageable);
 }

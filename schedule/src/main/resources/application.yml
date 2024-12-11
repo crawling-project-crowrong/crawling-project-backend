@@ -8,7 +8,6 @@ spring:
     console:
       enabled: true
   jpa :
-    database: mysql
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -19,9 +18,9 @@ spring:
         use_sql_comments: true
   scheduler:
     cron:
-      crawl-every-3-hour: "0 0 0/3 1/1 * ? *"
-      save-data-every-day: "0 0 1 1/1 * ? *"
-      delete-aging-data: "0 0 0 1 * ?"
+      news-crawling: "0 0 */3 * * ? "
+      save-data-every-day: "0 0 1 * * ?"
+      delete-aging-data: "0 0 0 1 0/6 ?"
     timeout:
       connection: 5000
 

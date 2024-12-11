@@ -32,7 +32,6 @@ public class NewsService {
         Elements articles = document.select(".sa_thumb_inner");
 
         List<String> links = new ArrayList<>();
-
         articles.forEach(article -> {
             if (links.size() >= LINK_SIZE) {
                 return;
@@ -104,5 +103,4 @@ public class NewsService {
                 .trim();
         return info;
     }
-
 }

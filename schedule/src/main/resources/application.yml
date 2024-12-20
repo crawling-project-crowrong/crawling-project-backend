@@ -5,6 +5,9 @@ spring:
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  kakao:
+    client-id: bc2c718aa374df7f4b52201962968bbd
+
   h2:
     console:
       enabled: true
@@ -29,8 +32,7 @@ scheduler:
   blog:
     crawling: "0 0 */3 * * ?"
     selecting: "0 0 6 * * *"
-    sending: "0 0 8 * * *"
-    # "30/30 * * * * *"
+    sending: "0 0 9 * * *"
   timeout:
     connection: 5000
 

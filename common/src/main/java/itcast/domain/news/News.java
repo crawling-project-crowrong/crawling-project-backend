@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 
 import jakarta.persistence.Lob;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
@@ -114,7 +115,7 @@ public class News extends BaseEntity {
             String originalContent,
             Interest interest,
             LocalDateTime publishedAt,
-            int rating,
+            Integer rating,
             String link,
             String thumbnail,
             NewsStatus status,

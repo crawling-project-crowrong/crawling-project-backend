@@ -47,8 +47,7 @@ public class AdminNewsServiceTest {
         //given
         Long userId = 1L;
         LocalDateTime fixedTime = LocalDateTime.of(2024, 12, 1, 12, 0);
-        LocalDate sendAt = LocalDate.of(2024, 12, 1);
-
+        LocalDate fixedDate2 = LocalDate.of(2024, 12, 1);
         User user = User.builder()
                 .id(1L)
                 .kakaoEmail("kakao@kakao.com")
@@ -64,7 +63,7 @@ public class AdminNewsServiceTest {
                 .link("http://example.com")
                 .thumbnail("http://thumbnail.com")
                 .status(NewsStatus.SUMMARY)
-                .sendAt(sendAt)
+                .sendAt(fixedDate2)
                 .build();
         AdminNewsRequest adminNewsRequest = new AdminNewsRequest(
                 "제목",
@@ -76,7 +75,7 @@ public class AdminNewsServiceTest {
                 "http://example.com",
                 "http://thumbnail.com",
                 NewsStatus.SUMMARY,
-                sendAt
+                fixedDate2
                 );
 
         given(userRepository.findById(userId)).willReturn(Optional.of(user));
@@ -160,7 +159,7 @@ public class AdminNewsServiceTest {
         Long userId = 1L;
         Long newsId = 1L;
         LocalDateTime fixedTime = LocalDateTime.of(2024, 12, 1, 12, 0);
-        LocalDate sendAt = LocalDate.of(2024, 12, 1);
+        LocalDate fixedDate2 = LocalDate.of(2024, 12, 1);
 
         User user = User.builder()
                 .id(userId)
@@ -178,7 +177,7 @@ public class AdminNewsServiceTest {
                 .link("http://example.com")
                 .thumbnail("http://thumbnail.com")
                 .status(NewsStatus.SUMMARY)
-                .sendAt(sendAt)
+                .sendAt(fixedDate2)
                 .build();
         AdminNewsRequest adminNewsRequest = new AdminNewsRequest(
                 "제목2",
@@ -190,7 +189,7 @@ public class AdminNewsServiceTest {
                 "http://example2.com",
                 "http://thumbnail2.com",
                 NewsStatus.ORIGINAL,
-                sendAt
+                fixedDate2
         );
 
         given(userRepository.findById(userId)).willReturn(Optional.of(user));

@@ -120,7 +120,7 @@ public class NewsServiceTest {
 
     @Test
     @DisplayName("오레된 데이터 삭제 메소드 테스트")
-    void testDeleteOldNews() throws IOException {
+    void testDeleteOldNews() {
         // When
         newsService.deleteOldData();
 

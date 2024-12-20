@@ -15,7 +15,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     List<String> findAllLinks();
 
     @Query("SELECT n FROM News n WHERE FUNCTION('DATE',n.createdAt) = :yesterday ORDER BY n.rating DESC LIMIT 3")
-    List<News> findRatingTot3ByCreatedAtOrdarByRating(@Param("yesterday") LocalDate yesterday);
+    List<News> findRatingTop3ByCreatedAt(@Param("yesterday") LocalDate yesterday);
 
     @Modifying
     @Query("DELETE FROM News n WHERE n.createdAt <= CURRENT_DATE - 6 MONTH")

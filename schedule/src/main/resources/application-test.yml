@@ -28,7 +28,6 @@ spring:
     ansi:
       enabled: always
 
-
 logging:
   level:
     org.hibernate.orm.jdbc.bind: TRACE

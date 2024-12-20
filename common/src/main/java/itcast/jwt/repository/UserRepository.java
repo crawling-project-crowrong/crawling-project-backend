@@ -7,13 +7,22 @@ import itcast.domain.user.enums.Interest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import itcast.domain.user.User;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(Long id);
+
     boolean existsByEmail(String email);
+
     boolean existsByNickname(String nickname);
+
     Optional<User> findByKakaoEmail(String kakaoEmail);
-    List<User> findAllByInterest(Interest interest);
-    User findByEmail(String userEmail);
+
     boolean existsByPhoneNumber(String phoneNumber);
+
+    @Query("SELECT u FROM User u WHERE u.interest = :interest")
+    List<User> findAllByInterest(@Param("interest") Interest interest);
+
+    User findByEmail(String email);
 }

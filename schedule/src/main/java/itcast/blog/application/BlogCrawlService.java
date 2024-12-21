@@ -1,5 +1,9 @@
 package itcast.blog.application;
 
+import static itcast.blog.constant.VelogQuery.VELOG_QUERY;
+import static itcast.blog.constant.VelogQuery.VELOG_VARIABLES;
+import static itcast.exception.ErrorCodes.BLOG_CRAWLING_ERROR;
+
 import itcast.ai.application.GPTService;
 import itcast.ai.dto.request.GPTSummaryRequest;
 import itcast.ai.dto.request.Message;
@@ -8,14 +12,11 @@ import itcast.blog.parser.VelogDataParser;
 import itcast.blog.parser.YozmDataParser;
 import itcast.blog.repository.BlogRepository;
 import itcast.domain.blog.Blog;
+import itcast.exception.ErrorCodes;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-import static itcast.blog.constant.VelogQuery.VELOG_QUERY;
-import static itcast.blog.constant.VelogQuery.VELOG_VARIABLES;
 
 @Service
 @Slf4j
@@ -30,13 +31,19 @@ public class BlogCrawlService {
     private final GPTService gptService;
 
     public void crawlVelog() {
-        String jsonResponse = velogHttpClient.fetchTrendingPostsOfJson(VELOG_QUERY, VELOG_VARIABLES);
-        List<String> blogUrls = velogDataParser.getBlogUrls(jsonResponse);
+        try {
+            String jsonResponse = velogHttpClient.fetchTrendingPostsOfJson(VELOG_QUERY, VELOG_VARIABLES);
+            List<String> blogUrls = velogDataParser.getBlogUrls(jsonResponse);
 
-        List<String> filteredBlogUrls = filterAllLinks(blogUrls);
-        List<Blog> blogs = velogDataParser.parseTrendingPosts(filteredBlogUrls);
+            List<String> filteredBlogUrls = filterAllLinks(blogUrls);
+            List<Blog> blogs = velogDataParser.parseTrendingPosts(filteredBlogUrls);
 
-        saveAndSendForGpt(blogs);
+            saveAndSendForGpt(blogs);
+        } catch (Exception e) {
+            final ErrorCodes ex = BLOG_CRAWLING_ERROR;
+            log.error("크롤링할 때 오류가 발생하였습니다. ErrorCode: {}, Message: {} Status: {}", ex.getCode(), ex.getMessage(),
+                    ex.getStatus(), e);
+        }
     }
 
     public void crawlYozm() {

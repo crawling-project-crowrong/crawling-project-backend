@@ -1,8 +1,11 @@
 package itcast.blog.scheduler;
 
 import itcast.blog.application.BlogCrawlService;
+import itcast.exception.ItCastApplicationException;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +20,20 @@ public class BlogCrawlSchedule {
     public void velogCrawling() {
         log.info("Velog Crawling Start ...");
 
-        blogCrawlService.crawlVelog();
+        final String requestId = UUID.randomUUID().toString();
+        MDC.put("request_id", requestId);
 
-        log.info("Velog Crawling & Save!");
+        try {
+            blogCrawlService.crawlVelog();
+            log.info("Velog Crawling & Save!");
+        } catch (ItCastApplicationException e) {
+            log.error("블로그를 크롤랑할 때 에러가 발생하였습니다. ErrorCode: {}, Message: {}",
+                    e.getErrorCodes(),
+                    e.getMessage(),
+                    e);
+        } finally {
+            MDC.clear();
+        }
     }
 
     @Scheduled(cron = "${scheduler.blog.crawling}")

@@ -12,7 +12,7 @@
                 <onMismatch>DENY</onMismatch>
             </filter>
             <encoder>
-                <pattern>%d{HH:mm:ss.SSS} [%X{request_id}] [%X{controller}] [%X{method}] [%thread] %-5level %logger{36} - %msg%n</pattern>
+                <pattern>%d{HH:mm:ss.SSS} [%X{request_id}] [%thread] %-5level %logger{36} - %msg%n</pattern>
                 <charset>utf8</charset>
             </encoder>
             <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -30,7 +30,7 @@
                 <onMismatch>DENY</onMismatch>
             </filter>
             <encoder>
-                <pattern>%d{HH:mm:ss.SSS} [%X{request_id}] [%X{controller}] [%X{method}] [%thread] %-5level %logger{36} - %msg%n</pattern>
+                <pattern>%d{HH:mm:ss.SSS} [%X{request_id}] [%thread] %-5level %logger{36} - %msg%n</pattern>
                 <charset>utf8</charset>
             </encoder>
             <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -48,7 +48,7 @@
                 <onMismatch>DENY</onMismatch>
             </filter>
             <encoder>
-                <pattern>%d{HH:mm:ss.SSS} [%X{request_id}] [%X{controller}] [%X{method}] [%thread] %-5level %logger{36} - %msg%n</pattern>
+                <pattern>%d{HH:mm:ss.SSS} [%X{request_id}] [%thread] %-5level %logger{36} - %msg%n</pattern>
                 <charset>utf8</charset>
             </encoder>
             <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
